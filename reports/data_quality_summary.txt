@@ -1,0 +1,20 @@
+Data Quality Assessment Summary
+
+1. All 10 datasets have been loaded and explored successfully.
+
+2. Date variables such as `date`, `launch_date`, `month`, `transaction_date`, and `portfolio_date` are being recorded as strings and need to be transformed to date in the preprocessing stage.
+
+3. There is a missing value in the `yoy_growth_pct` variable in the `04_monthly_sip_inflows.csv` dataset.
+
+4. Numeric variables like NAV, AUM, returns, and expense ratios are being stored in numeric data types.
+
+5. The validation for AMFI scheme codes showed that all 40 AMFI scheme codes from `01_fund_master.csv` can be found in the `02_nav_history.csv` dataset.
+
+6. Fund Master dataset:
+
+   - 10 unique fund houses
+   - 2 categories (Equity and Debt)
+   - 12 sub-categories
+   - 5 risk categories
+
+7. No major data issues were detected during initial exploration.
