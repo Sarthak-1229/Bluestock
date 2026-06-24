@@ -19,18 +19,18 @@ print("Duplicates removed:", before - after)
 # Checking missing NAV values
 print("Missing NAV values:", nav["nav"].isnull().sum())
 
-# Forward filling the missing nav values
+# Forward filling the missing nav  values
 nav["nav"] = nav.groupby("amfi_code")["nav"].ffill()
 
 # Check missing NAV values again to make sure ff is done
 print("Missing NAV values:", nav["nav"].isnull().sum())
 
-# Validate NAV > 0
+# Validating NAV > 0
 invalid_nav = nav[nav["nav"] <= 0]
 
 print("Invalid NAV values:", len(invalid_nav))
 
-# Save cleaned file
+# New cleaned file
 nav.to_csv(
     "data/processed/clean_nav_history.csv",
     index=False
