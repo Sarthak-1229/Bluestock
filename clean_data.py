@@ -85,5 +85,44 @@ transactions.to_csv(
     index=False
 )
 
+print("\n")
 
-#-------------------------------------------------------------------------
+#--------------------------------------------------------------------------------
+
+#Clwaning 07_scheme_performance.csv
+
+performance = pd.read_csv("data/raw/07_scheme_performance.csv")
+
+print("\nScheme Performance Shape:",performance.shape)
+
+
+return_columns = ["return_1yr_pct","return_3yr_pct","return_5yr_pct","benchmark_3yr_pct" ]
+
+
+for column in return_columns:
+    performance[column] = pd.to_numeric(performance[column],errors="coerce")
+
+# Check for missing values created after coonversion
+
+print("\nMissing values in return columns:")
+
+print(
+    performance[return_columns].isnull().sum()
+)
+
+#anomaly tracking
+anomalies = performance[ (performance["return_1yr_pct"] > 100) |(performance["return_1yr_pct"] < -100)]
+
+print("\nAnomalous Return Records:",len(anomalies))
+
+#validating  expense ratio
+invalid_expense = performance[(performance["expense_ratio_pct"] < 0.1) |(performance["expense_ratio_pct"] > 2.5)]
+
+print("\nInvalid Expense Ratio Records:",len(invalid_expense))
+
+# Save cleaned dataset
+
+performance.to_csv("data/processed/clean_scheme_performance.csv",index=False)
+
+print("\n")
+#---------------------------------------
