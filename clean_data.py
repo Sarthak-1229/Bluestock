@@ -36,3 +36,54 @@ nav.to_csv(
     index=False
 )
 
+print("\n")
+
+
+#---------------------------------------------------------------------------
+
+#Cleaning investor transaction.csv
+
+
+transactions = pd.read_csv("data/raw/08_investor_transactions.csv")
+
+print("\nInvestor Transactions Shape:",transactions.shape)
+
+# Convertin date dtyp to datetime 
+
+transactions["transaction_date"] = pd.to_datetime(transactions["transaction_date"])
+
+# Standardizing the transaction types
+
+
+transactions["transaction_type"] = (transactions["transaction_type"].str.strip().str.title())
+
+print("\nUnique Transaction Types:")
+
+
+print(
+    transactions["transaction_type"].unique()
+)
+
+# validating amount<=0
+
+invalid_amount = transactions[transactions["amount_inr"] <= 0   ]
+
+print("\nInvalid Amount Records:",len(invalid_amount))
+
+# Checking the kyc status values
+
+print("\nKYC Status Values:")
+
+print(
+    transactions["kyc_status"].unique()
+)
+
+# saved cleaned inestor_transaction.csv
+
+transactions.to_csv(
+    "data/processed/clean_investor_transactions.csv",
+    index=False
+)
+
+
+#-------------------------------------------------------------------------
