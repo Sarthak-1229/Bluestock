@@ -126,3 +126,37 @@ performance.to_csv("data/processed/clean_scheme_performance.csv",index=False)
 
 print("\n")
 #---------------------------------------
+
+# Cleaning fund_master.csv
+
+fund_master = pd.read_csv("data/raw/01_fund_master.csv")
+
+print("\nFund Master Shape:",fund_master.shape)
+
+# Convertng launch date to datetime
+
+fund_master["launch_date"] = pd.to_datetime(fund_master["launch_date"])
+
+# Removeing duplicates
+
+before = len(fund_master)
+
+fund_master = fund_master.drop_duplicates()
+
+after = len(fund_master)
+
+print("Duplicates removed:",before - after)
+
+# Validate expense ratio
+
+invalid_expense = fund_master[(fund_master["expense_ratio_pct"] < 0) |(fund_master["expense_ratio_pct"] > 5) ]
+
+print("Invalid Expense Ratios:",len(invalid_expense))
+
+# Saved cleaned file
+
+fund_master.to_csv("data/processed/clean_fund_master.csv",index=False)
+
+print("Cleaned Fund Master saved!")
+
+#----------------------------------
