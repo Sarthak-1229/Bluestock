@@ -192,3 +192,82 @@ sip.to_csv("data/processed/clean_monthly_sip_inflows.csv",index=False)
 print("Cleaned SIP dataset saved!")
 
 #--------------------------
+
+# Cleaning category inflows csv
+
+category_inflows = pd.read_csv("data/raw/05_category_inflows.csv")
+
+category_inflows["month"] = pd.to_datetime(category_inflows["month"])
+
+print("\nCategory Inflows Shape:", category_inflows.shape)
+
+before = len(category_inflows)
+
+category_inflows = category_inflows.drop_duplicates()
+
+after = len(category_inflows)
+
+print("Duplicates removed:", before - after)
+
+category_inflows.to_csv("data/processed/clean_category_inflows.csv", index=False)
+
+
+#--------------------------------------
+# Cleaning industry folio count csv
+
+industry_folios = pd.read_csv("data/raw/06_industry_folio_count.csv")
+
+industry_folios["month"] = pd.to_datetime(industry_folios["month"])
+
+print("\nIndustry Folio Dataset Shape:", industry_folios.shape)
+
+before = len(industry_folios)
+
+industry_folios = industry_folios.drop_duplicates()
+
+after = len(industry_folios)
+
+print("Duplicates removed:", before - after)
+
+industry_folios.to_csv("data/processed/clean_industry_folio_count.csv", index=False)
+
+#----------------------------------
+
+# Cleaning portfolio holdings csb
+
+portfolio = pd.read_csv("data/raw/09_portfolio_holdings.csv")
+
+portfolio["portfolio_date"] = pd.to_datetime(portfolio["portfolio_date"])
+
+print("\nPortfolio Holdings Shape:", portfolio.shape)
+
+before = len(portfolio)
+
+portfolio = portfolio.drop_duplicates()
+
+after = len(portfolio)
+
+print("Duplicates removed:", before - after)
+
+portfolio.to_csv("data/processed/clean_portfolio_holdings.csv", index=False)
+
+#-----------------------------------------
+
+# Cleaning benchmark indices csv
+
+benchmark = pd.read_csv("data/raw/10_benchmark_indices.csv")
+
+benchmark["date"] = pd.to_datetime(benchmark["date"])
+
+print("\nBenchmark Dataset Shape:", benchmark.shape)
+
+before = len(benchmark)
+
+benchmark = benchmark.drop_duplicates()
+
+after = len(benchmark)
+
+print("Duplicates removed:", before - after)
+
+benchmark.to_csv("data/processed/clean_benchmark_indices.csv", index=False)
+
