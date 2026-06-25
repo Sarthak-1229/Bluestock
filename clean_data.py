@@ -160,3 +160,35 @@ fund_master.to_csv("data/processed/clean_fund_master.csv",index=False)
 print("Cleaned Fund Master saved!")
 
 #----------------------------------
+
+# Cleaning aum_by_fund_house.csv
+
+aum = pd.read_csv("data/raw/03_aum_by_fund_house.csv")
+
+aum["date"] = pd.to_datetime(aum["date"])
+
+aum = aum.drop_duplicates()
+
+aum.to_csv("data/processed/clean_aum_by_fund_house.csv",index=False)
+
+print("\nCleaned AUM dataset saved!")
+
+#-------------------------------------
+
+# cleaning monthly_sip_flow.csv
+
+sip = pd.read_csv("data/raw/04_monthly_sip_inflows.csv")
+
+print("\nMissing values:")
+
+print(sip.isnull().sum())
+
+# Fill missing YoY values with 0
+
+sip["yoy_growth_pct"] = (sip["yoy_growth_pct"].fillna(0))
+
+sip.to_csv("data/processed/clean_monthly_sip_inflows.csv",index=False)
+
+print("Cleaned SIP dataset saved!")
+
+#--------------------------
